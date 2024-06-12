@@ -1,0 +1,15 @@
+<app-header></app-header>
+
+<div class="flex h-full overflow-hidden">
+  <app-sidebar [routes]="components" extraClass="border-r"></app-sidebar>
+
+  <main class="flex-1 overflow-auto p-4">
+<div style="margin-top: 6rem; margin-left: 20px; margin-right: 20px; margin-bottom: 30px;">
+  <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer>
+
+  </main>
+
+
+</div>

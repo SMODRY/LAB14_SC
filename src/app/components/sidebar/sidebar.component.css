@@ -1,0 +1,24 @@
+.sidebar-group-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-group-toggle {
+  margin-left: auto;
+}
+
+.sidebar-group-content {
+  margin-left: 20px;
+}
+
+.sidebar {
+  margin-top: 70px;
+  height: 100vh; /* Hace que el sidebar ocupe toda la altura de la ventana */
+  position: fixed; /* Fija el sidebar en su posición */
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column; /* Alinea los elementos en columna */
+  z-index: 999; /* Asegura que el sidebar esté detrás de la navbar */
+}

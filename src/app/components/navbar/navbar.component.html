@@ -1,0 +1,11 @@
+<nav
+class="border-red-200 bg-red px-2 py-2.5 sm:px-4"
+[ngClass]="[rounded ? 'rounded' : '', border ? 'border' : '', extraClass]"
+>
+<div
+  class="mx-auto flex flex-wrap items-center justify-between"
+  [ngClass]="{ container: !fluid }"
+>
+  <ng-content></ng-content>
+</div>
+</nav>

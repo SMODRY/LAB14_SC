@@ -1,0 +1,18 @@
+<a
+  class="group hov flex cursor-pointer items-center rounded-lg p-2 text-base font-normal text-white"
+  [routerLink]="link"
+  routerLinkActive="bg-a"
+  [routerLinkActiveOptions]="{ exact: true }"
+>
+  <span class="flex-shrink-0" *ngIf="images">
+    <img
+      [src]="images.light"
+      alt="{{ title }}"
+      class="h-7 w-7 transition duration-75 group-hover:text-gray-900"
+    />
+  </span>
+  <span class="flex-1 whitespace-nowrap" [class.ml-3]="!!images" *ngIf="(sidebarService.$collapsed | async) === false">
+    <ng-content></ng-content>
+  </span>
+  <app-badge *ngIf="(sidebarService.$collapsed | async) === false && label">{{ label }}</app-badge>
+</a>
