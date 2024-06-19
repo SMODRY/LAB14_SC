@@ -26,7 +26,7 @@ export class PadresListComponent implements OnInit, OnChanges {
   @Output() editPadre = new EventEmitter<Padre>();
   @Output() deletePadre = new EventEmitter<Padre>();
 
-  searchTerm: string = '';
+  searchText: string = '';
   selectedPadre: Padre | null = null;  // Cambié el nombre de la variable para evitar conflictos
 
   @ViewChild(PadreAddComponent) modalAdd!: PadreAddComponent;

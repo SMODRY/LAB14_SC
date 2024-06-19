@@ -14,7 +14,7 @@
           <input
           name="search"
           id="grados-search"
-          [(ngModel)]="searchTerm"
+          [(ngModel)]="searchText"
           class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
           placeholder="Buscar por grado"
         />
@@ -53,7 +53,7 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr *ngFor="let grado of grados | filter: searchTerm; let i = index" class="hover:bg-gray-100">
+            <tr *ngFor="let grado of grados | filter:searchText:'descripcion'; let i = index" class="hover:bg-gray-100">
               <td class="p-4 text-base font-normal text-gray-500 whitespace-nowrap">{{ i + 1 }}</td>
               <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ grado.descripcion | uppercase }}</td>
               <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ grado.nivel_nombre | uppercase}}</td>

@@ -25,12 +25,10 @@
   border-radius: 5px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 
-/* Añadir al archivo CSS general de la aplicación */
 main {
   transition: margin-left 0.3s ease-in-out;
 }

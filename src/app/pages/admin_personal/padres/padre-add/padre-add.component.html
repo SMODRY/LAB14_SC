@@ -1,8 +1,8 @@
-<div *ngIf="isOpen" class="fixed flex-1 overflow-auto p-4 z-10 inset-0 overflow-y-auto ml-4 mt-4" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div *ngIf="isOpen" class="fixed flex-1 overflow-auto p-4 z-10 inset-0 overflow-y-auto  mt-8" aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <div class="flex margin-top: 6rem; padding-left: 35px; padding-right: 20px; margin-bottom: 30px items-center justify-center min-h-screen text-center sm:block">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
-    <div class="inline-block align-middle bg-white rounded-lg px-4 pt-5 pb-4 pr-3 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full sm:p-6">
+    <div class="inline-block align-middle bg-white rounded-lg px-4 pt-5 pb-4 pr-3 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full sm:p-6 ">
       <div class="sm:flex sm:items-start">
         <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
           <i class="fas fa-plus" style="color: #0A295D;"></i>
@@ -11,10 +11,6 @@
           <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Añadir nuevo Padre</h3>
           <div class="mt-2 mb-3">
             <form (ngSubmit)="guardarPadre()" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="mt-2">
-                <label for="codigo" class="block text-sm font-medium text-gray-700">Código</label>
-                <input id="codigo" [(ngModel)]="padre.codigo" name="codigo" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600">
-              </div>
               <div class="mt-2">
                 <label for="apellidos_nombres" class="block text-sm font-medium text-gray-700">Apellidos y Nombres</label>
                 <input id="apellidos_nombres" [(ngModel)]="padre.apellidos_nombres" name="apellidos_nombres" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600">

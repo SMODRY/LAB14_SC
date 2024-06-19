@@ -21,7 +21,6 @@ export class PadreAddComponent {
   isOpen = false;
 
   padre: Padre = {
-    codigo: '',
     apellidos_nombres: '',
     parentesco: '',
     dni: '',
@@ -56,5 +55,5 @@ export class PadreAddComponent {
       }
     );
   }
-  
+
 }

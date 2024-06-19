@@ -25,7 +25,7 @@ import { NivelEducativoService } from '../../../core/services/nivel-educativo.se
 
 export class NivelEducativoComponent implements OnInit {
   niveles: NivelAcademico[] = [];
-  searchTerm: string = '';
+  searchText: string = '';
   selectedNivel: NivelAcademico | null = null;
   nivel: NivelAcademico | null = null;
 

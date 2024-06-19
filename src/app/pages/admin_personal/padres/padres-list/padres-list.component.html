@@ -6,7 +6,7 @@
         <input
         name="search"
         id="padres-search"
-        [(ngModel)]="searchTerm"
+        [(ngModel)]="searchText"
         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
         placeholder="Buscar por nombre"
       />
@@ -30,14 +30,14 @@
 </div>
 
 
-<div class="flex flex-col">
+<div class="flex flex-col mt-5">
   <div class="overflow-x-auto">
     <div class="inline-block min-w-full align-middle">
       <div class="overflow-hidden shadow">
         <table class="min-w-full divide-y divide-gray-200 table-fixed">
           <thead class="bg-gray-100  dark:bg-gray-700" [appEncabezadoDinamico]="encabezados"></thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr *ngFor="let padre of padres | filter: searchTerm; let i = index" class="hover:bg-gray-100">
+            <tr *ngFor="let padre of padres | filter:searchText:'apellidos_nombres' ; let i = index" class="hover:bg-gray-100">
               <td class="p-4 text-base font-medium text-gray-500 whitespace-nowrap">{{ i + 1 }}</td>
               <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.codigo | uppercase}}</td>
               <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.apellidos_nombres | uppercase}}</td>

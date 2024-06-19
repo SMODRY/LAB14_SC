@@ -13,7 +13,7 @@
             <input
             name="search"
             id="alumnos-search"
-            [(ngModel)]="searchTerm"
+            [(ngModel)]="searchText"
             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
             placeholder="Buscar por nivel"
           />
@@ -52,7 +52,7 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr *ngFor="let nivel of niveles | filter: searchTerm; let i = index" class="hover:bg-gray-100">
+            <tr *ngFor="let nivel of niveles | filter:searchText:'nombre'; let i = index" class="hover:bg-gray-100">
 
               <td class="p-4 text-base font-normal text-gray-500 whitespace-nowrap">{{ i + 1 }}</td>
               <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ nivel.nombre  | uppercase}}</td>

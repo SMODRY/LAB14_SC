@@ -19,7 +19,7 @@ export class EncabezadoDinamicoDirective implements OnInit {
     this.appEncabezadoDinamico.forEach(encabezado => {
       const th = document.createElement('th');
       th.scope = 'col';
-      th.className = 'p-4 text-xs font-bold text-center text-black-500 uppercase';
+      th.className = 'p-4 text-xs font-bold text-center text-black-500 uppercase m-b';
       th.innerText = encabezado;
       tr.appendChild(th);
     });

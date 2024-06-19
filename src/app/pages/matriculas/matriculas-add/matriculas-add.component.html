@@ -7,14 +7,59 @@
 
   <div>
     <label for="campoPadre">Padre Seleccionado:</label>
-    <input type="text" id="campoPadre" name="campoPadre" class="border px-2 py-1 rounded" readonly>
+    <input type="text" id="campoPadre" name="campoPadre" class="border px-2 py-1 rounded ml-2 pl-5 pr-5" readonly>
   </div>
 
-  <div *ngIf="showPadreDatatable">
-    <app-padres-list (selectPadre)="onPadreSeleccionado($event)" [enableSelection]="true"></app-padres-list>
+  <div *ngIf="showPadreDatatable" class="table-container">
+    <app-padres-list (padreSeleccionadoEvent)="onPadreSeleccionado($event)" [enableSelection]="true"></app-padres-list>
   </div>
 
-  <h2 class="text-xl font-semibold mb-2">Alumnos</h2>
+  <div *ngIf="showAlumnosList">
+    <app-estudiantes-list
+      (alumnoSeleccionadoEvent)="onAlumnoSeleccionado($event)"
+      (alumnoGuardadoEvent)="onAlumnoGuardado($event)"
+      [enableSelection]="true"
+    ></app-estudiantes-list>
+  </div>
+
+  <h2 class="text-xl font-semibold mb-2">Alumnos Seleccionados</h2>
+
+  <table class="table-auto border-collapse border border-gray-200 mt-4">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border border-gray-300 px-4 py-2">Nombre</th>
+        <th class="border border-gray-300 px-4 py-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let alumno of alumnosSeleccionados; let i = index">
+        <td class="border border-gray-300 px-4 py-2">{{ alumno.nombres }} {{ alumno.apellidos }}</td>
+        <td class="border border-gray-300 px-4 py-2">
+          <button (click)="eliminarAlumnoSeleccionado(i)" class="bg-red-500 text-white px-4 py-1 rounded">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Botón para abrir la lista de alumnos -->
+  <button (click)="openAlumnosList()" class="bg-blue-500 text-white px-4 py-2 mt-4 rounded">Agregar Alumnos</button>
+
+  <div class="mt-4">
+    <label for="codMatricula">Código de Matrícula:</label>
+    <input type="text" id="codMatricula" [(ngModel)]="cod_matricula" name="codMatricula" class="border px-2 py-1 rounded ml-2">
+  </div>
+  <div class="mt-4">
+    <label for="fechaMatricula">Fecha de Matrícula:</label>
+    <input type="date" id="fechaMatricula" [(ngModel)]="fecha_matricula" name="fechaMatricula" class="border px-2 py-1 rounded ml-2">
+  </div>
+  <div class="mt-4">
+    <label for="periodo">Periodo:</label>
+    <input type="text" id="periodo" [(ngModel)]="periodo" name="periodo" class="border px-2 py-1 rounded ml-2">
+  </div>
+  <div class="mt-4">
+    <label for="conceptoPago">Concepto de Pago:</label>
+    <input type="text" id="conceptoPago" [(ngModel)]="concepto_pago" name="conceptoPago" class="border px-2 py-1 rounded ml-2">
+  </div>
 
   <button (click)="saveMatricula()" class="bg-green-500 text-white px-4 py-2 mt-4 rounded">Guardar</button>
 </div>

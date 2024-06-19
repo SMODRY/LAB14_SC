@@ -37,7 +37,6 @@ export class PadreEditComponent {
   updatePadre(event: Event, field: keyof Padre) {
     const input = event.target as HTMLInputElement;
     if (this.padre) {
-      // Type assertion to bypass type error
       (this.padre[field] as unknown as string) = input.value;
     }
   }
@@ -51,10 +50,15 @@ export class PadreEditComponent {
           this.actualizarPadreEvent.emit();
         },
         (error) => {
-          this.toastr.error('Error al actualizar el padre');
-          console.error('Error al actualizar el padre:', error);
+          if (error.status === 400 && error.error && error.error.dni) {
+            this.toastr.error(`Error: ${error.error.dni[0]}`);
+          } else {
+            this.toastr.error('Error al actualizar el padre');
+            console.error('Error al actualizar el padre:', error);
+          }
         }
       );
     }
   }
+
 }

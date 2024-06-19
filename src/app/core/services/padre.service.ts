@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CristoReyService } from './cristo-rey.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { Padre } from '../models/padre.model';
 
 @Injectable({
@@ -29,19 +29,15 @@ export class PadreService extends CristoReyService{
   }
 
   addPadre(padre: Padre): Observable<any> {
-    return this.http.post(this.baseUrl + this.padreUrl, padre)
+    const { codigo, ...dataWithoutCodigo } = padre; // Excluir `codigo`
+    return this.http.post(this.baseUrl + this.padreUrl, dataWithoutCodigo)
       .pipe(
         catchError(this.handleError<any>('addPadre'))
       );
   }
 
-  updatePadre(padre: Padre): Observable<any> {
-    const url = `${this.baseUrl}${this.padreUrl}${padre.id_padre}/`;
-    return this.http.put(url, padre)
-      .pipe(
-        catchError(this.handleError<any>('updatePadre'))
-      );
-  }
+
+
   deletePadre(id: number): Observable<any> {
     const url = `${this.baseUrl}${this.padreUrl}${id}/`;
     return this.http.delete(url)
@@ -58,5 +54,16 @@ export class PadreService extends CristoReyService{
   }
 
 
+  updatePadre(padre: Padre): Observable<any> {
+    const url = `${this.baseUrl}padre/${padre.id_padre}/`; // Ajusta la URL según tu configuración de router
+    return this.http.put(url, padre)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al actualizar el padre:', error);
+          return throwError(error);
+        })
+      );
+  }
 
 }
+

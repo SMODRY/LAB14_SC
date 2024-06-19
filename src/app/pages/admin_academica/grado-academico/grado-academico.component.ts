@@ -22,7 +22,7 @@ import { FilterPipe } from '../../../shared/pipes/filter.pipe';
 })
 export class GradoAcademicoComponent implements OnInit {
   grados: GradoAcademico[] = [];
-  searchTerm: string = '';
+  searchText: string = '';
   selectedGrado: GradoAcademico | null = null;
   grado: GradoAcademico | null = null;
 

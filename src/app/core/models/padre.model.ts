@@ -1,6 +1,6 @@
 export interface Padre {
   id_padre?: number;
-  codigo: string;
+  codigo?: string; 
   apellidos_nombres: string;
   parentesco: string;
   dni: string;

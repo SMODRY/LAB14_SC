@@ -34,7 +34,7 @@ export const DASHBOARD_ROUTES: Routes = [
       {path: 'pensiones', component: PensionesComponent},
       {path: 'reportes', component: ReportesComponent},
       {path: 'configuraciones', component: ConfiguracionesComponent},
-      
+
     ]
   }
  ]
