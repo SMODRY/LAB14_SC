@@ -41,18 +41,27 @@ export class NivelEducativoEditComponent {
     }
   }
   actualizarNivel() {
-    if (this.nivel) {
-      this.nivelEducativoService.updateNivel(this.nivel).subscribe(
-        () => {
-          this.toastr.success('Nivel actualizado exitosamente');
-          this.cerrarModal();
-          this.actualizarNivelEvent.emit();
-        },
-        (error) => {
-          this.toastr.error('Error al actualizar el nivel');
-          console.error('Error al actualizar el nivel:', error);
+    if (this.nivel && this.nivel.nombre.trim()) {
+      const nivel = this.nivel;
+      this.nivelEducativoService.checkNivelExists(nivel.nombre).subscribe(exists => {
+        if (exists) {
+          this.toastr.error('El nombre del nivel académico ya existe');
+        } else {
+          this.nivelEducativoService.updateNivel(nivel).subscribe(
+            () => {
+              this.toastr.success('Nivel actualizado exitosamente');
+              this.cerrarModal();
+              this.actualizarNivelEvent.emit();
+            },
+            error => {
+              this.toastr.error('Error al actualizar el nivel');
+              console.error('Error al actualizar el nivel:', error);
+            }
+          );
         }
-      );
+      });
+    } else {
+      this.toastr.warning('El nombre del nivel académico no puede estar vacío');
     }
   }
 }

@@ -1,0 +1,76 @@
+<div class="items-center justify-between block sm:flex">
+  <div class="flex items-center mb-4 sm:mb-0">
+    <form class="sm:pr-3">
+      <label for="padres-search" class="sr-only">Buscar</label>
+      <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
+        <input
+        name="search"
+        id="padres-search"
+        [(ngModel)]="searchTerm"
+        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+        placeholder="Buscar por nombre"
+      />
+      </div>
+    </form>
+  </div>
+  <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
+    <button type="button" (click)="recargar()" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-70 focus:ring-4 focus:ring-primary-300 sm:w-auto">
+      <svg class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+      </svg>
+      Recargar
+    </button>
+    <button id="createProductButton" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-70 focus:ring-4 focus:ring-primary-300 sm:w-auto" type="button" (click)="abrirModalAdd()">
+      <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+      </svg>
+      Añadir Padre
+    </button>
+  </div>
+</div>
+
+
+<div class="flex flex-col">
+  <div class="overflow-x-auto">
+    <div class="inline-block min-w-full align-middle">
+      <div class="overflow-hidden shadow">
+        <table class="min-w-full divide-y divide-gray-200 table-fixed">
+          <thead class="bg-gray-100  dark:bg-gray-700" [appEncabezadoDinamico]="encabezados"></thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let padre of padres | filter: searchTerm; let i = index" class="hover:bg-gray-100">
+              <td class="p-4 text-base font-medium text-gray-500 whitespace-nowrap">{{ i + 1 }}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.codigo | uppercase}}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.apellidos_nombres | uppercase}}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.parentesco | uppercase}}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.dni | uppercase}}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.ocupacion | uppercase }}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.centro_trabajo | uppercase }}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.direccion | uppercase}}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.telefono_celular | uppercase}}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.estado_civil | uppercase}}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ padre.fecha_nacimiento | uppercase}}</td>
+              <td class="p-4 space-x-2 whitespace-nowrap">
+                <button *ngIf="enableSelection" (click)="onSelectPadre(padre, $event)" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:ring-blue-200">
+                  Seleccionar
+                </button>
+                <button *ngIf="!enableSelection" (click)="abrirModalEdit(padre)" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-primary-70 rounded-lg hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-200">
+                  Editar
+                </button>
+                <button *ngIf="!enableSelection" (click)="abrirModalDelete(padre)" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:ring-red-200">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+<app-padre-add (cerrarModalEvent)="recargar()" (padreGuardadoEvent)="onPadreGuardado()"></app-padre-add>
+
+<app-padre-edit (cerrarModalEvent)="recargar()" (padreActualizadoEvent)="recargar()"></app-padre-edit>
+
+<app-padre-delete (cerrarModalEvent)="recargar()" (padreGuardadoEvent)="recargar()"></app-padre-delete>
+</div>

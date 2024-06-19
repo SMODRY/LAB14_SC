@@ -29,6 +29,25 @@ export const components: RouteProps[] = [
     },
   },
   {
+    title: 'Administración Académica',
+    href: '',
+    group: true,
+    images: {
+      light: 'assets/icons/academico-blanco.png',
+      dark: 'assets/icons/academico-negro.png'
+    },
+    subRoutes: [
+      { title: 'Nivel Educativo', images: {
+          light: 'assets/icons/nivel-blanco.png',
+          dark: 'assets/icons/nivel-negro.png'
+      }, href: '/dashboard/nivel-educativo' },
+      { title: 'Grado Académico', images: {
+          light: 'assets/icons/grado-blanco.png',
+          dark: 'assets/icons/grado-negro.png'
+        }, href: '/dashboard/grado-academico' },
+    ],
+  },
+  {
     title: 'Administración financiera',
     href: '',
     group: true,
@@ -54,27 +73,8 @@ export const components: RouteProps[] = [
     ],
   },
   {
-    title: 'Administración Académica',
-    href: '#',
-    group: true,
-    images: {
-      light: 'assets/icons/academico-blanco.png',
-      dark: 'assets/icons/academico-negro.png'
-    },
-    subRoutes: [
-      { title: 'Nivel Educativo', images: {
-          light: 'assets/icons/nivel-blanco.png',
-          dark: 'assets/icons/nivel-negro.png'
-      }, href: '/dashboard/nivel-educativo' },
-      { title: 'Grado Académico', images: {
-          light: 'assets/icons/grado-blanco.png',
-          dark: 'assets/icons/grado-negro.png'
-        }, href: '/dashboard/grado-academico' },
-    ],
-  },
-  {
     title: 'Administración de Personal',
-    href: '#',
+    href: '',
     group: true,
     images: {
       light: 'assets/icons/personal-blanco.png',

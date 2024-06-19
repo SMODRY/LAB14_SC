@@ -1,9 +1,6 @@
-<aside
-  class="h-full "
-  [class.w-16]="sidebarService.$collapsed | async"
-  [class.w-64]="(sidebarService.$collapsed | async) === false"
->
-  <div class="sidebar flex h-full flex-col space-y-4 divide-y divide-gray-200 overflow-y-auto py-4 px-2" style="background-color: #012340;" [ngClass]="extraClass">
+<aside class="sidebar" [ngClass]="{ 'sidebar-open': !(sidebarService.$collapsed | async), 'sidebar-closed': (sidebarService.$collapsed | async) }">
+
+  <div class="flex h-full flex-col space-y-4 divide-y divide-gray-200 overflow-y-auto py-4 px-2 pr-4 pl-3" [ngClass]="extraClass">
     <ng-container *ngFor="let route of routes">
       <ng-container *ngIf="!route.group; else groupTemplate">
         <app-sidebar-item [images]="route.images" [link]="route.href">{{ route.title }}</app-sidebar-item>
@@ -15,7 +12,7 @@
         </div>
         <ng-container *ngIf="isGroupOpen(route.title)">
           <ng-container *ngFor="let subRoute of getSubRoutes(route)">
-            <div class="ml-6"> <!-- Aquí aplicamos el margen a los subgrupos -->
+            <div [ngClass]="{ 'ml-open': !(sidebarService.$collapsed | async), 'ml-closed': (sidebarService.$collapsed | async) }">
               <app-sidebar-item [images]="subRoute.images" [link]="subRoute.href">{{ subRoute.title }}</app-sidebar-item>
             </div>
           </ng-container>

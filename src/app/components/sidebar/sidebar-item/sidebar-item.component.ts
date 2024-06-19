@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { SidebarService } from '../../../services/sidebar/sidebar.service';
-import { BadgeComponent } from '../badge/badge.component';
+import { SidebarService } from '../../../core/services/sidebar.service';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-item',
   standalone: true,
-  imports: [CommonModule, RouterModule, BadgeComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './sidebar-item.component.html',
   styleUrl: './sidebar-item.component.css'
 })

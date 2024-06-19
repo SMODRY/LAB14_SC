@@ -77,7 +77,7 @@ export class NivelEducativoComponent implements OnInit {
 
   onNivelGuardado() {
     this.allNiveles();
-    this.loadNiveles();  // Actualiza la lista de niveles
+    this.loadNiveles();
   }
 
   abrirModalEdit(nivel: NivelAcademico) {

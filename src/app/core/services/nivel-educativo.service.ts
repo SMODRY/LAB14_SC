@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CristoReyService } from './cristo-rey.service';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { NivelAcademico } from '../models/nivel-academico.model';
 
 @Injectable({
@@ -53,6 +53,22 @@ export class NivelEducativoService extends CristoReyService {
         catchError(this.handleError<any>('deleteNivel'))
       );
   }
+
+  checkNivelExists(nombre: string): Observable<boolean> {
+    const url = `${this.baseUrl}${this.endpoint}?nombre=${nombre}`;
+    console.log(`Verificando existencia del nivel académico con nombre: ${nombre}`);
+    return this.http.get<NivelAcademico[]>(url).pipe(
+      map(niveles => {
+        console.log(`Niveles encontrados:`, niveles);
+        return niveles.length > 0;
+      }),
+      catchError(error => {
+        console.error('Error en checkNivelExists:', error);
+        return of(false);
+      })
+    );
+  }
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

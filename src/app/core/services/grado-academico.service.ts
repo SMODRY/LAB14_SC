@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError,  map, of } from 'rxjs';
 import { GradoAcademico } from '../models/grado-academico.model';
 import { CristoReyService } from './cristo-rey.service';
 
@@ -47,6 +47,29 @@ export class GradoAcademicoService extends CristoReyService{
         catchError(this.handleError<any>('updateGrado'))
       );
   }
+
+  checkGradoExists(descripcion: string, id_nivel: number): Observable<boolean> {
+    const url = `${this.baseUrl}${this.gradoUrl}`;
+    console.log(`Verificando existencia del grado académico con descripción: ${descripcion} y id_nivel: ${id_nivel}`);
+    return this.http.get<GradoAcademico[]>(url).pipe(
+      map(grados => {
+        // Convertir la descripción a minúsculas para comparación insensible a mayúsculas
+        const lowerDescripcion = descripcion.toLowerCase();
+        const matchingGrados = grados.filter(grado =>
+          grado.descripcion.toLowerCase() === lowerDescripcion && grado.id_nivel === id_nivel
+        );
+        console.log(`Grados encontrados:`, matchingGrados);
+        return matchingGrados.length > 0;
+      }),
+      catchError(error => {
+        console.error('Error en checkGradoExists:', error);
+        return of(false);
+      })
+    );
+  }
+
+
+
 
   deleteGrado(id: number): Observable<any> {
     const url = `${this.baseUrl}${this.gradoUrl}${id}/`;

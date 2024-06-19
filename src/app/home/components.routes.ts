@@ -27,10 +27,14 @@ export const DASHBOARD_ROUTES: Routes = [
       {path: 'nivel-educativo', component: NivelEducativoComponent},
       {path: 'estudiantes', component: EstudiantesComponent},
       {path: 'padres', component: PadresComponent},
-      {path: 'matriculas', component: MatriculasComponent},
+      {
+        path: 'matriculas',
+        loadChildren: () => import('../pages/matriculas/matriculas.routes').then(m => m.MATRICULA_ROUTES)
+      },
       {path: 'pensiones', component: PensionesComponent},
       {path: 'reportes', component: ReportesComponent},
       {path: 'configuraciones', component: ConfiguracionesComponent},
+      
     ]
   }
  ]

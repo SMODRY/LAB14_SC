@@ -14,11 +14,63 @@
 
 .sidebar {
   margin-top: 70px;
-  height: 100vh; /* Hace que el sidebar ocupe toda la altura de la ventana */
-  position: fixed; /* Fija el sidebar en su posición */
+  height: 100vh;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
-  flex-direction: column; /* Alinea los elementos en columna */
-  z-index: 999; /* Asegura que el sidebar esté detrás de la navbar */
+  flex-direction: column;
+  z-index: 999;
+}
+
+/* Estilo base del sidebar */
+.sidebar {
+  transition: transform 0.3s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 999;
+}
+
+/* Clase para cuando el sidebar está abierto */
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* Clase para cuando el sidebar está cerrado */
+.sidebar.closed {
+  transform: translateX(-100%);
+}
+
+
+/* sidebar.component.css */
+
+.sidebar {
+  transition: width 0.3s ease-in-out, transform 0.3s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 999;
+  background-color: #012340;
+}
+
+.sidebar-open {
+  transition: width 0.3s ease-in-out;
+  width: 17rem; /* equivalente a 64 */
+}
+
+.sidebar-closed {
+  transition: width 0.3s ease-in-out;
+  width: 4.4rem; /* equivalente a 16 */
+}
+/* Clase para margen izquierdo cuando el sidebar está abierto */
+.ml-open {
+  margin-left: 1.5rem; /* equivalente a 6 */
+}
+
+/* Clase para margen izquierdo cuando el sidebar está cerrado */
+.ml-closed {
+  margin-left: 0; /* sin margen */
 }

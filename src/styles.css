@@ -10,7 +10,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
 }
 
 /* Track */
@@ -21,11 +21,41 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #000;
+  background: #181818;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* Añadir al archivo CSS general de la aplicación */
+main {
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.main-collapsed {
+  margin-left: 4rem; /* Ancho del sidebar cuando está cerrado */
+}
+
+.main-expanded {
+  margin-left: 16rem; /* Ancho del sidebar cuando está abierto */
+}
+
+.bg-primary-70{
+  background-color: #12469e;
+}
+
+.bg-primary-70:hover{
+  background-color: #0A295D;
+}
+
+.color_red{
+  background-color: #B71C1C;
+}
+.color_redt{
+  color: #B71C1C;
+  font-size: 50px;
+  margin-bottom: 60px;
 }

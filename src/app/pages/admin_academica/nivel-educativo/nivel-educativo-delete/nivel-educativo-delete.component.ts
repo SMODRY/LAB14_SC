@@ -13,6 +13,7 @@ import { NivelEducativoService } from '../../../../core/services/nivel-educativo
   styleUrl: './nivel-educativo-delete.component.css'
 })
 export class NivelEducativoDeleteComponent {
+  
   @Input() nivel: NivelAcademico | null = null;
   @Output() cerrarModalEvent = new EventEmitter<void>();
   @Output() eliminarNivelEvent = new EventEmitter<void>();

@@ -46,16 +46,16 @@
         <table class="min-w-full divide-y divide-gray-200 table-fixed">
           <thead class="bg-gray-100 dark:bg-gray-700">
             <tr>
-              <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase">ID</th>
-              <th scope="col" class="p-4 text-xs font-medium text-center text-gray-500 uppercase">Name</th>
-              <th scope="col" class="p-4 text-xs font-medium text-center text-gray-500 uppercase">Actions</th>
+              <th scope="col" class="p-4 text-xs font-bold text-left text-black-500 uppercase">N°</th>
+              <th scope="col" class="p-4 text-xs font-bold text-center text-black-500 uppercase">Nombre</th>
+              <th scope="col" class="p-4 text-xs font-bold text-center text-black-500 uppercase">Acciones</th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr *ngFor="let nivel of niveles | filter: searchTerm" class="hover:bg-gray-100">
+            <tr *ngFor="let nivel of niveles | filter: searchTerm; let i = index" class="hover:bg-gray-100">
 
-              <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap">{{ nivel.id_nivelacademico }}</td>
-              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ nivel.nombre }}</td>
+              <td class="p-4 text-base font-normal text-gray-500 whitespace-nowrap">{{ i + 1 }}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ nivel.nombre  | uppercase}}</td>
 
               <td class="p-4 space-x-2 text-center whitespace-nowrap">
                 <button

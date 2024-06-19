@@ -46,18 +46,17 @@
         <table class="min-w-full divide-y divide-gray-200 table-fixed">
           <thead class="bg-gray-100 dark:bg-gray-700">
             <tr>
-              <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase">ID</th>
-              <th scope="col" class="p-4 text-xs font-medium text-center text-gray-500 uppercase">Grado</th>
-              <th scope="col" class="p-4 text-xs font-medium text-center text-gray-500 uppercase">Nivel</th>
-              <th scope="col" class="p-4 text-xs font-medium text-center text-gray-500 uppercase">Actions</th>
+              <th scope="col" class="p-4 text-xs font-bold text-left text-black-500 uppercase">N°</th>
+              <th scope="col" class="p-4 text-xs font-bold text-center text-black-500 uppercase">Grado</th>
+              <th scope="col" class="p-4 text-xs font-bold text-center text-black-500 uppercase">Nivel</th>
+              <th scope="col" class="p-4 text-xs font-bold text-center text-black-500 uppercase">Accioness</th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr *ngFor="let grado of grados | filter: searchTerm" class="hover:bg-gray-100">
-
-              <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap">{{ grado.id_grdacademico }}</td>
-              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ grado.descripcion }}</td>
-              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ grado.nivel_nombre }}</td>
+            <tr *ngFor="let grado of grados | filter: searchTerm; let i = index" class="hover:bg-gray-100">
+              <td class="p-4 text-base font-normal text-gray-500 whitespace-nowrap">{{ i + 1 }}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ grado.descripcion | uppercase }}</td>
+              <td class="p-4 text-sm text-center font-normal text-gray-500 whitespace-nowrap">{{ grado.nivel_nombre | uppercase}}</td>
 
               <td class="p-4 space-x-2 text-center whitespace-nowrap">
                 <button

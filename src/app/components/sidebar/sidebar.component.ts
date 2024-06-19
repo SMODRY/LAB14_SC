@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { SidebarService } from '../../services/sidebar/sidebar.service';
+import { SidebarService } from '../../core/services/sidebar.service';
 import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
 import { SidebarItemGroupComponent } from './sidebar-item-group/sidebar-item-group.component';
 import { RouteProps, SubRouteProps } from '../../home/components';
@@ -16,7 +16,7 @@ export class SidebarComponent {
   @Input() extraClass = '';
   @Input() rounded = false;
   @Input() routes: RouteProps[] = [];
-  openGroups: Set<string> = new Set(); // Set para almacenar los grupos abiertos
+  openGroups: Set<string> = new Set();
 
   constructor(readonly sidebarService: SidebarService) {}
 

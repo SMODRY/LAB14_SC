@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormResetEvent, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { NivelAcademico } from '../../../../core/models/nivel-academico.model';
 import { NivelEducativoService } from '../../../../core/services/nivel-educativo.service';
 import { GradoAcademicoService } from '../../../../core/services/grado-academico.service';
@@ -12,9 +12,9 @@ import { ToastrService } from 'ngx-toastr';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './grado-academico-add.component.html',
-  styleUrl: './grado-academico-add.component.css'
+  styleUrls: ['./grado-academico-add.component.css']
 })
-export class GradoAcademicoAddComponent implements OnInit{
+export class GradoAcademicoAddComponent implements OnInit {
 
   @Output() cerrarModalEvent = new EventEmitter<void>();
   @Output() gradoGuardadoEvent = new EventEmitter<void>();
@@ -34,15 +34,23 @@ export class GradoAcademicoAddComponent implements OnInit{
   }
 
   cargarNiveles(): void {
-    this.nivelEducativoService.allNiveles().subscribe(niveles => {
-      this.niveles = niveles;
-      if (this.niveles.length > 0) {
-        this.nivelSeleccionado = this.niveles[0];
+    this.nivelEducativoService.allNiveles().subscribe(
+      niveles => {
+        this.niveles = niveles;
+        if (this.niveles.length > 0) {
+          this.nivelSeleccionado = this.niveles[0];
+        } else {
+          this.nivelSeleccionado = null;
+        }
+      },
+      error => {
+        console.error('Error al cargar los niveles académicos:', error);
+        this.toastr.error('Error al cargar los niveles académicos');
       }
-    });
+    );
   }
 
-  abrirModalAdd() {
+  abrirModalAdd(): void {
     this.isOpen = true;
   }
 
@@ -54,8 +62,13 @@ export class GradoAcademicoAddComponent implements OnInit{
 
   limpiarCampos(): void {
     this.descripcion = '';
-    this.nivelSeleccionado = this.niveles[0];
+    if (this.niveles.length > 0) {
+      this.nivelSeleccionado = this.niveles[0];
+    } else {
+      this.nivelSeleccionado = null;
+    }
   }
+
 
   guardarGrado(): void {
     if (this.descripcion && this.nivelSeleccionado) {
@@ -64,18 +77,34 @@ export class GradoAcademicoAddComponent implements OnInit{
         id_nivel: this.nivelSeleccionado.id_nivelacademico!,
         nivel_nombre: this.nivelSeleccionado.nombre
       };
-
-      this.gradoAcademicoService.addGrado(nuevoGrado).subscribe(
-        () => {
-        this.toastr.success('Grado academico guardado exitosamente');
-        this.gradoGuardadoEvent.emit();
-        this.cerrarModal();
-      },
-      error => {
-        this.toastr.error('Error al guardar el grado academico');
-        console.error('Error al guardar el grado academico:', error);
-      }
-    );
-   }
+      this.gradoAcademicoService.checkGradoExists(this.descripcion.toLowerCase(), this.nivelSeleccionado.id_nivelacademico!).subscribe(exists => {
+        if (exists) {
+          this.toastr.error('El grado con esa descripción ya existe en el nivel seleccionado.');
+        } else {
+          this.gradoAcademicoService.addGrado(nuevoGrado).subscribe(
+            () => {
+              this.toastr.success('Grado académico guardado exitosamente');
+              this.gradoGuardadoEvent.emit();
+              this.cerrarModal();
+            },
+            error => {
+              this.toastr.error('Error al guardar el grado académico');
+              console.error('Error al guardar el grado académico:', error);
+            }
+          );
+        }
+      });
+    } else {
+      this.toastr.warning('La descripción del grado académico no puede estar vacía y debe seleccionar un nivel.');
+    }
   }
 }
+
+
+
+
+
+
+
+
+

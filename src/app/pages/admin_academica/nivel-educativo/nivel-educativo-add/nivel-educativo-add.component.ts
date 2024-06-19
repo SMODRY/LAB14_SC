@@ -27,23 +27,40 @@ export class NivelEducativoAddComponent {
 
   cerrarModal() {
     this.isOpen = false;
+    this.limpiarCampos();
     this.cerrarModalEvent.emit();
   }
 
-  guardarNivel() {
-    const nuevoNivel: NivelAcademico = { nombre: this.nivel };
-
-    this.nivelEducativoService.addNivel(nuevoNivel).subscribe(
-      () => {
-        this.toastr.success('Nivel educativo guardado exitosamente');
-        this.nivelGuardadoEvent.emit();
-        this.cerrarModal();
-      },
-      error => {
-        this.toastr.error('Error al guardar el nivel educativo');
-        console.error('Error al guardar el nivel educativo:', error);
-      }
-    );
+  limpiarCampos(): void {
+    this.nivel = '';
   }
+
+  guardarNivel() {
+    console.log(`Intentando guardar nivel académico con nombre: ${this.nivel}`);
+    if (this.nivel.trim()) {
+      this.nivelEducativoService.checkNivelExists(this.nivel).subscribe(exists => {
+        console.log(`Resultado de la verificación de existencia: ${exists}`);
+        if (exists) {
+          this.toastr.error('El nombre del nivel académico ya existe');
+        } else {
+          const nuevoNivel: NivelAcademico = { nombre: this.nivel };
+          this.nivelEducativoService.addNivel(nuevoNivel).subscribe(
+            () => {
+              this.toastr.success('Nivel educativo guardado exitosamente');
+              this.nivelGuardadoEvent.emit();
+              this.cerrarModal();
+            },
+            error => {
+              this.toastr.error('Error al guardar el nivel educativo');
+              console.error('Error al guardar el nivel educativo:', error);
+            }
+          );
+        }
+      });
+    } else {
+      this.toastr.warning('El nombre del nivel académico no puede estar vacío');
+    }
+  }
+
 
 }

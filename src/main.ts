@@ -4,6 +4,9 @@ import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { AuthInterceptor } from './app/core/interceptors/auth.interceptor';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+
 
 bootstrapApplication(AppComponent, {
   ...appConfig,
@@ -14,7 +17,9 @@ bootstrapApplication(AppComponent, {
       timeOut: 3000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
-    }))
+    })),
+    importProvidersFrom(HttpClientModule),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })
 .catch(err => console.error(err));

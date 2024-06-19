@@ -59,22 +59,56 @@ export class GradoAcademicoEditComponent implements OnInit{
     this.cerrarModalEvent.emit();
   }
 
+
   actualizarGrado(): void {
     if (this.grado && this.descripcion && this.nivelSeleccionado) {
-      this.grado.descripcion = this.descripcion;
-      this.grado.id_nivel = this.nivelSeleccionado.id_nivelacademico!;
-
-      this.gradoAcademicoService.updateGrado(this.grado).subscribe(
-        () => {
-          this.toastr.success('Grado académico actualizado exitosamente');
-          this.actualizarGradoEvent.emit();
-          this.cerrarModal();
-        },
-        (error) => {
-          this.toastr.error('Error al actualizar el grado académico');
-          console.error('Error al actualizar el grado académico:', error);
+      if (this.descripcion.toLowerCase() !== this.grado.descripcion.toLowerCase() || this.nivelSeleccionado.id_nivelacademico !== this.grado.id_nivel) {
+        this.grado.descripcion = this.descripcion;
+        this.grado.id_nivel = this.nivelSeleccionado.id_nivelacademico!;
+        this.gradoAcademicoService.checkGradoExists(this.descripcion.toLowerCase(), this.nivelSeleccionado.id_nivelacademico!).subscribe(exists => {
+          if (exists) {
+            this.toastr.error('El grado con esa descripción ya existe en el nivel seleccionado.');
+          } else {
+            if (this.grado) {
+              this.gradoAcademicoService.updateGrado(this.grado).subscribe(
+                () => {
+                  this.toastr.success('Grado académico actualizado exitosamente');
+                  this.actualizarGradoEvent.emit();
+                  this.cerrarModal();
+                },
+                (error) => {
+                  this.toastr.error('Error al actualizar el grado académico');
+                  console.error('Error al actualizar el grado académico:', error);
+                }
+              );
+            } else {
+              this.toastr.warning('No se encontró el grado académico para actualizar.');
+            }
+          }
+        });
+      } else {
+        if (this.grado) {
+          this.gradoAcademicoService.updateGrado(this.grado).subscribe(
+            () => {
+              this.toastr.success('Grado académico actualizado exitosamente');
+              this.actualizarGradoEvent.emit();
+              this.cerrarModal();
+            },
+            (error) => {
+              this.toastr.error('Error al actualizar el grado académico');
+              console.error('Error al actualizar el grado académico:', error);
+            }
+          );
+        } else {
+          this.toastr.warning('No se encontró el grado académico para actualizar.');
         }
-      );
+      }
+    } else {
+      this.toastr.warning('Debe seleccionar un grado académico para actualizar.');
     }
   }
+
+
+
+
 }
